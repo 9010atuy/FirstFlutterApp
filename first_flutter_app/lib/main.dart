@@ -107,7 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
 // 継承していないと、createStateできない？->できない
 class RandomWordsState extends State<RandomWords> {
   // WordPari格納用のリストを宣言（定数）
-  final _suggestions = <WordPair>[];
+  final List<WordPair> _suggestions = <WordPair>[];
+  // お気に入り登録用変数
+  final Set<WordPair> _saved = Set<WordPair>();
   // フォントサイズを設定
   final _biggerFont = const TextStyle(fontSize: 18.0);
   @override
@@ -135,11 +137,26 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final bool alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      // tapイベントの記述
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
 }
