@@ -8,6 +8,8 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
+  // Widget：見た目に関わる部分（アプリ全体、画面の土台、画面のパーツ、パーツの並べ方）
+  // Everything is Widget(building block のベース)
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Startup Name Generator',
@@ -101,8 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// State「RandomWords」を継承したRandomWordsStateクラス
+// 継承していないと、createStateできない？->できない
 class RandomWordsState extends State<RandomWords> {
+  // WordPari格納用のリストを宣言（定数）
   final _suggestions = <WordPair>[];
+  // フォントサイズを設定
   final _biggerFont = const TextStyle(fontSize: 18.0);
   @override
   Widget build(BuildContext context) {
@@ -138,7 +144,10 @@ class RandomWordsState extends State<RandomWords> {
   }
 }
 
+// MyAppのhomeから呼び出し
+// StatefuleWidgetを継承したクラス（RandomWords）
 class RandomWords extends StatefulWidget {
+  // State(RandomWordsState)の生成
   @override
   RandomWordsState createState() => RandomWordsState();
 }
